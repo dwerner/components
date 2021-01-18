@@ -9,11 +9,10 @@ pub enum Event {
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum ComponentError {
     #[error("This is an example error {0}")]
-    Example(u32)
+    Example(u32),
 }
 
-pub trait Component
-{
+pub trait Component {
     type Item;
     fn handle_event(&mut self, event: Self::Item) -> Result<Self::Item, ComponentError>;
 }
@@ -24,7 +23,7 @@ pub struct Server<C> {
 
 impl<C> Server<C>
 where
-    C: Component<Item=Event>
+    C: Component<Item = Event>,
 {
     pub fn new() -> Server<C> {
         Server {
@@ -52,12 +51,18 @@ mod tests {
 
     #[test]
     fn should_handle_event() {
-        let mut server = Server::<Comp>::new();
+        let mut server = Server::new();
 
         // TODO: pass this test by implementing Component, etc.
         //
 
-        assert_eq!(server.event(Event::Request), Ok(vec![Event::Response, Event::Response]));
-        assert_eq!(server.event(Event::Response), Err(ComponentError::Example(42)));
+        assert_eq!(
+            server.event(Event::Request),
+            Ok(vec![Event::Response, Event::Response])
+        );
+        assert_eq!(
+            server.event(Event::Response),
+            Err(ComponentError::Example(42))
+        );
     }
 }
