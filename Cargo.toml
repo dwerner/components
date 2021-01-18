@@ -1,0 +1,15 @@
+[package]
+name = "interview-project"
+version = "0.1.0"
+authors = ["?"]
+edition = "2018"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "server"
+path = "src/main.rs"
+
+[dependencies]
+thiserror = "1.0"
